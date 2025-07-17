@@ -95,7 +95,7 @@ def genera_pdf(data):
     f = data.get('features', {})
     for k, v in f.items():
         if v:
-            f_ore = 2 if k in ['eventi', 'prenotazioni', 'appuntamenti'] else 1
+            f_ore = 4 if k in ['eventi', 'prenotazioni', 'appuntamenti'] else 1
             f_cost = f_ore * costo_ora
             ore += f_ore
             pdf.set_font("Arial", '', 10)
