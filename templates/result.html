@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+
+  <div class="text-center mb-4">
+    <h2 class="mt-3">Preventivo Sito Web</h2>
+    <p class="text-muted">Creato da Ilias Donadoni – Quote App</p>
+  </div>
+
+  <!-- SEZIONE RIEPILOGO -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">📋 Riepilogo Attività</h5>
+    </div>
+    <div class="card-body">
+
+      <p><strong>Cliente:</strong> {{ session['cliente_nome'] }} – {{ session['cliente_email'] }}{% if session['cliente_azienda'] %} ({{ session['cliente_azienda'] }}){% endif %}</p>
+
+      <hr>
+
+      <h6>🔧 Pagine statiche da realizzare:</h6>
+      <ul>
+        {% for pagina, moduli in session.get('pagine_dettaglio', {}).items() %}
+          <li>
+            <strong>{{ pagina.capitalize() }}</strong>: {{ ', '.join(moduli) }}
+          </li>
+        {% endfor %}
+      </ul>
+
+      <h6 class="mt-3">⚙️ Funzionalità aggiuntive richieste:</h6>
+      <ul>
+        {% for key, val in session['features'].items() %}
+          {% if val %}
+            <li><strong>{{ key.capitalize() }}</strong>: {{ val if val is string else 'Sì' }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <hr>
+
+      <h6>⏱ Stima tempo complessivo:</h6>
+      <p><strong>{{ ore }} ore</strong></p>
+
+      <h6>💰 Costo stimato:</h6>
+      <p><strong>CHF {{ "%.2f"|format(costo) }}</strong></p>
+
+    </div>
+  </div>
+
+  <!-- BOTTONI PDF -->
+  <div class="text-center">
+    <a href="{{ url_for('view_pdf') }}" class="btn btn-outline-primary me-3">📄 Visualizza PDF</a>
+    <a href="{{ url_for('download') }}" class="btn btn-primary">⬇️ Scarica PDF</a>
+  </div>
+
+</div>
+{% endblock %}

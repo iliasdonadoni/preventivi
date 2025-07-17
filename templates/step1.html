@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4">
+  <h2 class="mb-4">1 – Informazioni Cliente</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome completo</label>
+      <input type="text" class="form-control" id="nome" name="nome" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="azienda" class="form-label">Azienda (opzionale)</label>
+      <input type="text" class="form-control" id="azienda" name="azienda">
+    </div>
+    <button type="submit" class="btn btn-primary">Avanti</button>
+  </form>
+</div>
+{% endblock %}

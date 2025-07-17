@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h3>Pagine aggiunte</h3>
+<ul class="list-group">
+  {% for nome, moduli in pagine.items() %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ nome }}</strong>: {{ ', '.join(moduli) }}
+      </div>
+      <a href="{{ url_for('remove_page', nome=nome) }}" class="btn btn-danger btn-sm">❌ Rimuovi</a>
+    </li>
+  {% endfor %}
+</ul>
+<h2>Aggiungi una pagina</h2>
+<form method="post">
+  <div class="mb-3">
+    <label for="nome_pagina" class="form-label">Nome pagina</label>
+    <input type="text" name="nome_pagina" class="form-control" required>
+  </div>
+
+  <label class="form-label">Seleziona contenuti:</label>
+  <h4 class="mt-4">Moduli disponibili</h4>
+
+  <!-- Facoltativo: filtro di ricerca -->
+  <input type="text" id="filtro-moduli" class="form-control mb-3" placeholder="Cerca moduli..." onkeyup="filtraModuli()">
+
+  <div id="moduli-lista">
+
+    <strong>📄 Sezioni base</strong>
+    {% for modulo in ["Home base", "descrizione azienda", "form contatto", "mappa", "orari apertura"] %}
+      {% include 'modulo_checkbox.html' %}
+    {% endfor %}
+
+    <strong>👥 Chi siamo</strong>
+    {% for modulo in ["team", "storia", "mission", "valori", "testimonianze"] %}
+      {% include 'modulo_checkbox.html' %}
+    {% endfor %}
+
+    <strong>🖼️ Media</strong>
+    {% for modulo in ["slider immagini", "galleria immagini", "video"] %}
+      {% include 'modulo_checkbox.html' %}
+    {% endfor %}
+
+    <strong>🛠️ Servizi & funzionalità</strong>
+    {% for modulo in ["servizi", "listino prezzi", "faq", "area download", "blog", "prenotazioni", "eventi", "appuntamenti", "live chat", "newsletter"] %}
+      {% include 'modulo_checkbox.html' %}
+    {% endfor %}
+
+    <strong>📢 Marketing</strong>
+    {% for modulo in ["sponsor", "partner", "call to action", "social media", "recensioni google"] %}
+      {% include 'modulo_checkbox.html' %}
+    {% endfor %}
+
+  </div>
+
+
+  <button type="submit" class="btn btn-primary mt-3">Aggiungi pagina</button>
+</form>
+
+
+<a href="{{ url_for('step3') }}" class="btn btn-success mt-4">Prosegui allo Step 3</a>
+
+<script>
+function filtraModuli() {
+  const filtro = document.getElementById('filtro-moduli').value.toLowerCase();
+  const moduli = document.querySelectorAll('#moduli-lista .form-check');
+  moduli.forEach(m => {
+    const label = m.querySelector('label').textContent.toLowerCase();
+    m.style.display = label.includes(filtro) ? 'block' : 'none';
+  });
+}
+</script>
+
+{% endblock %}
+
+

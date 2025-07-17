@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4">
+  <h2 class="mb-4">3 – Funzionalità avanzate</h2>
+  <form method="post">
+    {% for feature, name in [
+      ('eventi', 'Eventi'),
+      ('prenotazioni', 'Prenotazioni'),
+      ('appuntamenti', 'Appuntamenti')
+    ] %}
+      <div class="mb-3">
+        <label class="form-label">{{ name }}</label>
+        <select class="form-select" name="{{ feature }}">
+          <option value="">Nessuno</option>
+          <option value="solo email">Solo notifica email</option>
+          <option value="web interface">Interfaccia web</option>
+          <option value="mobile app">Notifiche mobile</option>
+        </select>
+      </div>
+    {% endfor %}
+
+    <div class="form-check mb-2">
+      <input selected class="form-check-input" type="checkbox" name="dominio" id="dominio">
+      <label class="form-check-label" for="dominio">Creazione dominio & hosting</label>
+    </div>
+    <div class="form-check mb-4">
+      <input class="form-check-input" type="checkbox" name="email" id="email">
+      <label class="form-check-label" for="email">Email personalizzata professionale</label>
+    </div>
+
+    <button type="submit" class="btn btn-success">Genera Preventivo</button>
+  </form>
+</div>
+{% endblock %}
